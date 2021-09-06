@@ -8,8 +8,32 @@
 	  <th>introduction</th>
 	  <th><%= user.introduction %></th>
   </tr>
+  <tr>
+    <th>follows</th>
+    <th>
+      <%= link_to follows_user_path(user.id) do %>
+        <%= user.followeds.count %>
+      <% end %>
+    </th>
+  </tr>
+  <tr>
+    <th>followers</th>
+    <th>
+      <%= link_to follower_user_path(user.id) do %>
+        <%= user.followers.count %>
+      <% end %>
+    </th>
+  </tr>
 </table>
 
-<div class='row'>
-  <%= link_to '',edit_user_path(user),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{user.id}" %>
-</div>
+<% if user != current_user %>
+  <% if user.followed_by?(current_user) %>
+    <%= link_to "フォロー外す", relationships_path(user.id), method: :delete, class:"btn btn-info" %>
+  <% else %>
+    <%= link_to "フォローする", relationships_path(user.id), method: :post, class:"btn btn-success" %>
+  <% end %>
+<% else %>
+  <div class='row'>
+    <%= link_to '',edit_user_path(user),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{user.id}" %>
+  </div>
+<% end %>
