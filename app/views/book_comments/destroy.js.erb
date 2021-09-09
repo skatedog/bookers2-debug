@@ -1,2 +1,2 @@
 $(".books-comments").html("<%= j(render "books/comments", {book: @book, book_comment: BookComment.new }) %>");
-$(".comment-form").val("");
+$(".comments-count").html("<%= "コメント数: #{@book.book_comments.count}"%>");
