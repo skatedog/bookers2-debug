@@ -10,14 +10,14 @@
       <td><%= comment.body %></td>
       <% if comment.user == current_user %>
         <td>
-          <%= link_to "Destroy", book_book_comment_path(comment.book.id, comment.id), method: :delete, class: "btn btn-sm btn-danger" %>
+          <%= link_to "Destroy", book_book_comment_path(comment.book.id, comment.id), method: :delete, class: "btn btn-sm btn-danger", remote: true %>
         </td>
       <% end %>
       </td>
     </tr>
   <% end %>
 </table>
-<%= form_with model: [book, book_comment], local:true do |f| %>
-  <%= f.text_area :body, class: "form-control" %>
+<%= form_with model: [book, book_comment] do |f| %>
+  <%= f.text_area :body, class: "form-control comment-form" %>
   <%= f.submit "送信" %>
 <% end %>

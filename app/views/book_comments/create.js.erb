@@ -1,0 +1,2 @@
+$(".books-comments").html("<%= j(render "books/comments", {book: @book, book_comment: BookComment.new }) %>");
+$(".comment-form").val("");
