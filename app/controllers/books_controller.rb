@@ -8,7 +8,7 @@ class BooksController < ApplicationController
 
   def index
     @book = Book.new
-    @books = Book.all
+    @books = Book.find(book_ids)
   end
 
   def create
@@ -17,7 +17,7 @@ class BooksController < ApplicationController
     if @book.save
       redirect_to book_path(@book), notice: "You have created book successfully."
     else
-      @books = Book.all
+      @books = Book.find(book_ids)
       render 'index'
     end
   end
@@ -49,6 +49,10 @@ class BooksController < ApplicationController
     unless @book.user == current_user
       redirect_to books_path
     end
+  end
+
+  def book_ids
+    Favorite.where("created_at > ?", 1.week.ago).group(:book_id).order("count(*) desc").pluck(:book_id)
   end
 
   def book_params
