@@ -8,7 +8,25 @@ class BooksController < ApplicationController
 
   def index
     @book = Book.new
-    @books = Book.find(book_ids)
+    # 解答1
+    # (favoritesを含む)本をすべて取得し、本が持つ(期間内に作成された)favoriteの数が多い順に本を並び変える。
+    @books = sorted_books
+
+    # 解答2 問題点：期間内にfavoriteされていないbookについては表示されない。
+    #
+    # 期間内に作成されたfavoriteをbook_idごとに集計し、数が多い順に並び替え、その並び順でidを配列形式に取得する。
+    # book_ids = Favorite.where(created_at: from...to).group(:book_id).order("count(*) desc").pluck(:book_id)
+    # idの配列をもとに、Bookインスタンスを生成する。
+    # @books = Book.find(book_ids)
+
+    # 解答3(DWC) 問題点:期間外に作成されたユーザーが作成したいいねは並び替えをする際にカウントされない。
+    # (favorited_usersを含む)本をすべて取得し、本に対していいねをした、(期間内に作成された)userの数が多い順に本を並び変える。
+    # @books = Book.includes(:favorited_users).
+    #   sort {|a,b|
+    #     b.favorited_users.includes(:favorites).where(created_at: from...to).size <=>
+    #     a.favorited_users.includes(:favorites).where(created_at: from...to).size
+    #   }
+
   end
 
   def create
@@ -17,7 +35,7 @@ class BooksController < ApplicationController
     if @book.save
       redirect_to book_path(@book), notice: "You have created book successfully."
     else
-      @books = Book.find(book_ids)
+      @books = sorted_books
       render 'index'
     end
   end
@@ -51,8 +69,14 @@ class BooksController < ApplicationController
     end
   end
 
-  def book_ids
-    Favorite.where("created_at > ?", 1.week.ago).group(:book_id).order("count(*) desc").pluck(:book_id)
+  def sorted_books
+    to  = Time.current.at_end_of_day
+    from  = (to - 6.day).at_beginning_of_day
+
+    Book.includes(:favorites).sort do |a,b|
+      b.favorites.where(created_at: from...to).size <=>
+      a.favorites.where(created_at: from...to).size
+    end
   end
 
   def book_params
