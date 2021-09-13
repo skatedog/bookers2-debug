@@ -18,6 +18,10 @@ class User < ApplicationRecord
   # 自分がフォローしている人のリストからフォローされている人を取得
   has_many :followeds, through: :followeds_list, source: :followed
 
+  has_many :user_rooms
+  has_many :rooms, through: :user_rooms
+  has_many :chats
+
   attachment :profile_image, destroy: false
 
   validates :name, length: {maximum: 20, minimum: 2}, uniqueness: true
@@ -25,5 +29,9 @@ class User < ApplicationRecord
 
   def followed_by?(user)
     followers.where(id: user.id).exists?
+  end
+
+  def follow_each_other?(user)
+    followed_by?(user) && user.followed_by?(self)
   end
 end
