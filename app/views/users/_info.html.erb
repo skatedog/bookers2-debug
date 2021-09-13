@@ -32,7 +32,11 @@
   <% else %>
     <%= link_to "フォローする", relationships_path(user.id), method: :post, class:"btn btn-success" %>
   <% end %>
+  <% if current_user.follow_each_other?(user) %>
+    <%= link_to "Chatを始める", chat_path(params[:id]) %>
+  <% end %>
 <% else %>
+
   <div class='row'>
     <%= link_to '',edit_user_path(user),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{user.id}" %>
   </div>
