@@ -68,3 +68,9 @@ gem "refile-mini_magick"
 gem 'bootstrap', '~> 4.5'
 gem 'jquery-rails'
 gem 'font-awesome-sass', '~> 5.13'
+gem 'impressionist', '~>1.6.1'
+
+group :development, :test do
+  gem 'hirb'
+  gem 'hirb-unicode'
+end

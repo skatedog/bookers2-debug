@@ -3,6 +3,7 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
+    impressionist(@book, nil, :unique => [:user_id])
     @book_comment = BookComment.new
   end
 
