@@ -1,0 +1,33 @@
+<h2>投稿数の前日比・前週比</h2>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>今日の投稿数</th>
+      <th>前日の投稿数</th>
+      <th>前日比</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @books.posted_today.count %></td>
+      <td><%= @books.posted_yesterday.count %></td>
+      <td><%= user.posted_day_ratio %></td>
+    </tr>
+  </tbody>
+</table>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>今週の投稿数</th>
+      <th>前週の投稿数</th>
+      <th>前週比</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @books.posted_this_week.count %></td>
+      <td><%= @books.posted_last_week.count %></td>
+      <td><%= user.posted_week_ratio %></td>
+    </tr>
+  </tbody>
+</table>

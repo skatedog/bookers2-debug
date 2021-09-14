@@ -34,4 +34,20 @@ class User < ApplicationRecord
   def follow_each_other?(user)
     followed_by?(user) && user.followed_by?(self)
   end
+
+  def posted_day_ratio
+    if books.posted_yesterday.count.zero?
+      "－"
+    else
+      ((books.posted_today.count.to_f / books.posted_yesterday.count.to_f) * 100).round.to_s + "%"
+    end
+  end
+
+  def posted_week_ratio
+    if books.posted_last_week.count.zero?
+      "－"
+    else
+      ((books.posted_this_week.count.to_f / books.posted_last_week.count.to_f) * 100).round.to_s + "%"
+    end
+  end
 end
