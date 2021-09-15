@@ -1,0 +1,16 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-3'>
+      <h2>User info</h2>
+      <%= render 'users/info', user: current_user %>
+      <h2 class="mt-3">New book</h2>
+      <%= render 'books/form', book: Book.new %>
+    </div>
+    <div class='col-md-8 offset-md-1'>
+  		<h2>Group detail</h2>
+  		<div class="groups-detail">
+  		  <%= render "groups/detail", group: @group %>
+  		</div>
+    </div>
+  </div>
+</div>

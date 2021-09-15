@@ -1,0 +1,14 @@
+<table class='table'>
+  <tr>
+    <td>
+      <%= attachment_image_tag(group, :image, :fill, 50, 50, fallback: "no-image-icon.jpg", size: "50x50") %>
+    </td>
+    <td><%= group.name %></td>
+    <td><%= group.introduction %></td>
+    <td>
+      <% if group.owner_id == current_user.id %>
+        <%= link_to 'Edit', edit_group_path(group.id), class: "btn btn-sm btn-success" %>
+      <% end %>
+    </td>
+  </tr>
+</table>
