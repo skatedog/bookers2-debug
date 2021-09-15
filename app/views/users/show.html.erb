@@ -8,7 +8,16 @@
     </div>
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
-      <%= render 'books/index',books: @books %>
+      <div id="books_index">
+        <%= render 'books/index',books: @books %>
+      </div>
+      <%= form_with url: user_path(params[:id]), method: :get do |f| %>
+        <%= f.date_field :serch_date %>
+        <%= f.submit "検索", class:"btn btn-primary" %>
+      <% end %>
+      <div id="users_serch_date">
+        <%= render "users/serch_date",serch_books_count: @serch_books_count %>
+      </div>
       <%= render 'users/posts_data', user: @user %>
     </div>
   </div>

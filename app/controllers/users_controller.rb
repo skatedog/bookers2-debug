@@ -2,12 +2,19 @@ class UsersController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update]
 
   def show
-    @user = User.find(params[:id])
-    @books = @user.books
     @book = Book.new
+    @user = User.find(params[:id])
+
+    if params[:serch_date]
+      @books = @user.books.where(created_at: params[:serch_date].to_date.all_day)
+      @serch_books_count = @books.count
+    else
+      @books = @user.books
+      @serch_books_count = nil
+    end
 
     @days = [*1..6].reverse.map { |n| n.to_s + "日前" } << "今日"
-    @datas = [*0..6].reverse.map { |n| @books.posted_n_day_ago(n).count }
+    @datas = [*0..6].reverse.map { |n| @user.books.posted_n_day_ago(n).count }
   end
 
   def index
