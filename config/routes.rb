@@ -13,7 +13,9 @@ Rails.application.routes.draw do
     resources :book_comments, only: [:create, :destroy]
   end
   resources :chats, only: [:show, :create]
-  resources :groups
+  resources :groups do
+    resource :group_users, only: [:create, :destroy]
+  end
 
   root 'homes#top'
   get 'home/about' => 'homes#about'
