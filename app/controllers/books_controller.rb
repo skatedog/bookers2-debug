@@ -9,7 +9,7 @@ class BooksController < ApplicationController
 
   def index
     @book = Book.new
-    @books = sorted_books
+    @books = Book.all.order(params[:sort_by])
   end
 
   def create
