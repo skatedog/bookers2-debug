@@ -23,6 +23,7 @@
       <td>
         <% if group.owner_id == current_user.id %>
           <%= link_to 'Edit', edit_group_path(group.id), class: "btn btn-sm btn-success" %>
+          <%= link_to "Notice an Event",group_email_form_path(params[:id]), class: "btn btn-sm btn-info" %>
         <% else %>
           <% if group.users.find_by(id: current_user.id) %>
             <%= link_to "Leave this group", group_group_users_path(params[:id]), method: :delete, class:"btn btn-sm btn-danger" %>

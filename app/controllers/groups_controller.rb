@@ -8,6 +8,20 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
   end
 
+  def email_form
+    @group = Group.find(params[:group_id])
+    unless @group.owner_id == current_user.id
+      redirect_to group_path(params[:group_id])
+    end
+  end
+
+  def send_event_email
+    email_addresses = Group.find(params[:group_id]).users.map { |user| user.email }
+    @title = params[:title]
+    @content = params[:content]
+    GroupMailer.send_email(email_addresses,@title,@content).deliver_now
+  end
+
   def new
     @group = Group.new
     @group.owner_id = current_user.id

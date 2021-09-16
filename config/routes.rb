@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   resources :chats, only: [:show, :create]
   resources :groups do
     resource :group_users, only: [:create, :destroy]
+    get :email_form
+    get :send_event_email
   end
 
   root 'homes#top'
