@@ -1,0 +1,15 @@
+<div id="<%= obj.id %>-evaluation"></div>
+
+<script>
+  $("#<%= obj.id %>-evaluation").raty({
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    starHalf: "<%= asset_path('star-half.png') %>",
+    scoreName: '<%= obj.class.name.downcase %>[evaluation]', //登録するモデル名とカラム名を記述
+    half: true,
+    <% unless obj.evaluation.nil? %>
+     readOnly: true,
+     score: <%= obj.evaluation %>,
+    <% end %>
+  });
+</script>
