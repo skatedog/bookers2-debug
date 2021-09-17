@@ -18,7 +18,7 @@
       <div id="users_serch_date">
         <%= render "users/serch_date",serch_books_count: @serch_books_count %>
       </div>
-      <%= render 'users/posts_data', user: @user %>
+        <%= render 'users/posts_data', {user: @user, days: @days, datas: @datas} %>
     </div>
   </div>
 </div>

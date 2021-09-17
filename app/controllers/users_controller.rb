@@ -9,10 +9,13 @@ class UsersController < ApplicationController
       @books = @user.books.where(created_at: params[:serch_date].to_date.all_day)
       @serch_books_count = @books.count
     else
-      @books = @user.books
+      if params[:category]
+        @books = @user.books.where(category: params[:category])
+      else
+        @books = @user.books
+      end
       @serch_books_count = nil
     end
-
     @days = [*1..6].reverse.map { |n| n.to_s + "日前" } << "今日"
     @datas = [*0..6].reverse.map { |n| @user.books.posted_n_day_ago(n).count }
   end

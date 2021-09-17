@@ -1,11 +1,15 @@
 <%= form_with model:book,local:true do |f| %>
   <div class="form-group">
     <%= f.label :title %>
-    <%= f.text_field :title, class: 'form-control book_title' %>
+    <%= f.text_field :title, class: 'form-control' %>
   </div>
   <div class="form-group">
     <%= f.label :opinion %>
-    <%= f.text_area :body, class: 'form-control book_body' %>
+    <%= f.text_area :body, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :category %>
+    <%= f.text_field :category, class: 'form-control' %>
   </div>
   <div class="form-group">
     <%= f.label :rate %>

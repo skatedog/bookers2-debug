@@ -30,6 +30,7 @@ class User < ApplicationRecord
   validates :name, length: {maximum: 20, minimum: 2}, uniqueness: true
   validates :introduction, length: {maximum: 50}
 
+
   def followed_by?(user)
     followers.where(id: user.id).exists?
   end

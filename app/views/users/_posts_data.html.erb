@@ -9,8 +9,8 @@
   </thead>
   <tbody>
     <tr>
-      <td><%= @books.posted_today.count %></td>
-      <td><%= @books.posted_yesterday.count %></td>
+      <td><%= user.books.posted_today.count %></td>
+      <td><%= user.books.posted_yesterday.count %></td>
       <td><%= user.posted_day_ratio %></td>
     </tr>
   </tbody>
@@ -25,8 +25,8 @@
   </thead>
   <tbody>
     <tr>
-      <td><%= @books.posted_this_week.count %></td>
-      <td><%= @books.posted_last_week.count %></td>
+      <td><%= user.books.posted_this_week.count %></td>
+      <td><%= user.books.posted_last_week.count %></td>
       <td><%= user.posted_week_ratio %></td>
     </tr>
   </tbody>
@@ -35,14 +35,14 @@
 <table class="table table-bordered">
   <thead>
     <tr>
-      <% @days.each do |day| %>
+      <% days.each do |day| %>
         <th><%= day %></th>
       <% end %>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <% @datas.each do |data| %>
+      <% datas.each do |data| %>
         <td><%= data %></td>
       <% end %>
     </tr>
@@ -52,9 +52,9 @@
 <canvas id="myLineChart"></canvas>
 
 <script>
-$(document).on('turbolinks:load', function() {
-  var days = <%== @days %>
-  var datas = <%= @datas %>
+$(document).ready(function () {
+  var days = <%== days %>
+  var datas = <%= datas %>
   var ctx = document.getElementById("myLineChart");
   var myLineChart = new Chart(ctx, {
     type: 'line',
